@@ -248,8 +248,229 @@ www
 runoob
 com
 ```
+## 字符串分隔(StringTokenizer)
+Java 中我们可以使用 StringTokennizer 设置不同分隔符来分隔字符串，默认的分隔符是：空格、制表符（\t）、换行符(\n）、回车符（\r）。
 
+以下实例演示了 StringTokennizer 使用空格和等号来分隔字符串：
+```
+import java.util.StringTokenizerDemo;
+ 
+public class Main {
+    public static void main(String[] args) {
+ 
+        String str = "This is String , split by StringTokenizer, created by runoob";
+        StringTokenizer st = new StringTokenizer(str);
+ 
+        System.out.println("----- 通过空格分隔 ------");
+        while (st.hasMoreElements()) {
+            System.out.println(st.nextElement());
+        }
+ 
+        System.out.println("----- 通过逗号分隔 ------");
+        StringTokenizer st2 = new StringTokenizer(str, ",");
+ 
+        while (st2.hasMoreElements()) {
+            System.out.println(st2.nextElement());
+        }
+    }
+}
+```
+编译后的结果为：
+```
+----- 通过空格分隔 ------
+This
+is
+String
+,
+split
+by
+StringTokenizer,
+created
+by
+runoob
+----- 通过逗号分隔 ------
+This is String 
+ split by StringTokenizer
+ created by runoob
+```
 
+## 字符串小写转大写
+以下实例使用了 String toUpperCase() 方法将字符串从小写转为大写：
+```
+public class StringToUpperCaseEmp {
+    public static void main(String[] args) {
+        String str = "string runoob";
+        String strUpper = str.toUpperCase();
+        System.out.println("原始字符串: " + str);
+        System.out.println("转换为大写: " + strUpper);
+    }
+}
+```
+编译后的结果为：
+```
+原始字符串: string runoob
+转换为大写: STRING RUNOOB
+```
+## 测试两个字符串区域是否相等
+以下实例使用了 regionMatches() 方法测试两个字符串区域是否相等：
+```
+public class StringRegionMatchDemo{
+    public static void main(String[] args){
+       String first_str = "Welcome to Microsoft";
+       String second_str = "I work with microsoft";
+       boolean match1 = first_str.
+       regionMatches(11, second_str, 12, 9);
+       boolean match2 = first_str.
+       regionMatches(true, 11, second_str, 12, 9); //第一个参数 true 表示忽略大小写区别
+       System.out.println("区分大小写返回值：" + match1);
+       System.out.println("不区分大小写返回值：" + match2);
+    }
+ }
+```
+编译后的结果为：
+
+```
+区分大小写返回值：false
+不区分大小写返回值：true
+```
+## 字符串性能比较测试
+以下实例演示了通过两种方式创建字符串，并测试其性能：
+```
+public class StringComparePerformance{
+    public static void main(String[] args){      
+        String variables[] = new String[50000];
+        long startTime0 = System.currentTimeMillis();
+        for (int i = 0; i < 50000; i++) {
+            variables[i] = "hello";
+        }
+
+        long endTime0 = System.currentTimeMillis();
+        System.out.println("使用字面量直接赋值字符串，花费时间：" + (endTime0 - startTime0) + "毫秒");
+        String variables1[] = new String[50000];
+        long startTime1 = System.currentTimeMillis();
+        for (int i = 0; i < 50000; i++) {
+            variables1[i] = new String("hello");
+        }
+
+        long endTime1 = System.currentTimeMillis();
+        System.out.println("使用字符串对象花费时间：" + (endTime1 - startTime1) + "毫秒");
+        String variables2[] = new String[50000];
+        long startTime2 = System.currentTimeMillis();
+        for (int i = 0; i < 50000; i++) {
+            variables2[i] = new String("hello");
+            variables2[i] = variables2[i].intern();
+        }
+
+        long endTime2 = System.currentTimeMillis();
+        System.out.println("使用字符串对象intern()方法花费时间：" + (endTime2 - startTime2) + "毫秒");
+    }
+ }
+```
+编译后的结果为：
+```
+使用字面量直接赋值字符串，花费时间：1毫秒
+使用字符串对象花费时间：2毫秒
+使用字符串对象intern()方法花费时间：7毫秒
+```
+## 字符串优化
+以下实例演示了通过 String.intern() 方法来优化字符串：
+
+```
+public class StringOptimizationDemo {
+    public static void main(String[] args){
+        String variables[] = new String[50000];      
+        for( int i=0;i <50000;i++){
+            variables[i] = "s"+i;
+        }
+        long startTime0 = System.currentTimeMillis();
+        for(int i=0;i<50000;i++){
+            variables[i] = "hello";
+        }
+        long endTime0 = System.currentTimeMillis();
+        System.out.println("直接使用字符串： "+ (endTime0 - startTime0)  + " ms" );
+        long startTime1 = System.currentTimeMillis();
+            for(int i=0;i<50000;i++){
+            variables[i] = new String("hello");
+        }
+        long endTime1 = System.currentTimeMillis();
+        System.out.println("使用 new 关键字：" + (endTime1 - startTime1) + " ms");
+        long startTime2 = System.currentTimeMillis();
+        for(int i=0;i<50000;i++){
+            variables[i] = new String("hello");
+            variables[i] = variables[i].intern();          
+        }
+        long endTime2 = System.currentTimeMillis();
+        System.out.println("使用字符串对象的 intern() 方法: " 
+        + (endTime2 - startTime2)
+        + " ms");
+    }
+}
+```
+编译后的结果为：
+
+```
+直接使用字符串： 1 ms
+使用 new 关键字：3 ms
+使用字符串对象的 intern() 方法: 6 ms
+```
+## 字符串格式化
+以下实例演示了通过 format() 方法来格式化字符串，还可以指定地区来格式化：
+```
+import java.util.*;
+ 
+public class StringFormatDemo {
+    public static void main(String[] args){
+        double e = Math.E;
+        System.out.format("%f%n", e);
+        System.out.format(Locale.CHINA  , "%-10.4f%n%n", e);  //指定本地为中国（CHINA）
+    }
+}
+```
+编译后的结果为：
+
+```
+2.718282
+2.7183    
+```
+## 连接字符串
+以下实例演示了通过 "+" 操作符和StringBuffer.append() 方法来连接字符串，并比较其性能：
+```
+public class StringConcatenateDemo {
+    public static void main(String[] args){
+        long startTime = System.currentTimeMillis();
+        for(int i=0;i<5000;i++){
+            String result = "This is"
+            + "testing the"
+            + "difference"+ "between"
+            + "String"+ "and"+ "StringBuffer";
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("字符串连接" 
+        + " - 使用 + 操作符 : " 
+        + (endTime - startTime)+ " ms");
+        long startTime1 = System.currentTimeMillis();
+        for(int i=0;i<5000;i++){
+            StringBuffer result = new StringBuffer();
+            result.append("This is");
+            result.append("testing the");
+            result.append("difference");
+            result.append("between");
+            result.append("String");
+            result.append("and");
+            result.append("StringBuffer");
+        }
+        long endTime1 = System.currentTimeMillis();
+        System.out.println("字符串连接" 
+        + " - 使用 StringBuffer : "
+        + (endTime1 - startTime1)+ " ms");
+    }
+}
+```
+编译后的结果为：
+```
+字符串连接 - 使用 + 操作符 : 1 ms
+字符串连接 - 使用 StringBuffer : 4 ms
+```
 
 源地址：[Java 实例](https://www.runoob.com/java/java-examples.html)
 
