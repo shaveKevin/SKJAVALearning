@@ -243,7 +243,223 @@ public class FillTest {
 50
 50
 ```
+## Java 实例 - 数组扩容
+以下实例演示了如何在数组初始化后对数组进行扩容：
+```
+public class ArrayExpended {
+    public static void main(String[] args) {
+        String[] names = new String[] { "A", "B", "C" };
+        String[] extended = new String[5];
+        extended[3] = "D";
+        extended[4] = "E";
+        System.arraycopy(names, 0, extended, 0, names.length);
+        for (String str : extended){
+            System.out.println(str);
+        }
+    }
+}
+```
+编译后的结果为：
 
+```
+A
+B
+C
+D
+E
+```
+## 
+
+```
+public class RemoveDupicate {
+    public static void main(String[] args) 
+    {
+        int[] my_array = {1, 2, 5, 5, 6, 6, 7, 2, 9, 2};
+        findDupicateInArray(my_array);
+ 
+    }
+ 
+    public static void findDupicateInArray(int[] a) {
+        int count=0;
+        for(int j=0;j<a.length;j++) {
+            for(int k =j+1;k<a.length;k++) {
+                if(a[j]==a[k]) {
+                    count++;
+                }
+            }
+            if(count==1)
+               System.out.println( "重复元素 : " +  a[j] );
+            count = 0;
+        }
+    }
+}
+```
+编译后的结果为：
+```
+重复元素 : 5
+重复元素 : 6
+重复元素 : 2
+```
+## Java 实例 - 删除数组元素
+
+以下实例演示了如何使用 remove () 方法来删除数组元素：
+```
+import java.util.*;
+public class RemoveObject {
+    public static void main(String[] args) {
+        ArrayList<String> objArray = new ArrayList<String>();
+        objArray.clear();
+        objArray.add(0,"第 0 个元素");
+        objArray.add(1,"第 1 个元素");
+        objArray.add(2,"第 2 个元素");
+        System.out.println("数组删除元素前："+objArray);
+        objArray.remove(1);
+        objArray.remove("第 0 个元素");
+        System.out.println("数组删除元素后："+objArray);
+    }
+}
+```
+编译后的结果为：
+```
+数组删除元素前：[第 0 个元素, 第 1 个元素, 第 2 个元素]
+数组删除元素后：[第 2 个元素]
+```
+
+## Java 实例 - 数组差集
+
+以下实例演示了如何使用 removeAll () 方法来计算两个数组的差集：
+```
+import java.util.ArrayList;
+ 
+public class MinusArray {
+    public static void main(String[] args)  {
+        ArrayList objArray = new ArrayList();
+        ArrayList objArray2 = new ArrayList();
+        objArray2.add(0,"common1");
+        objArray2.add(1,"common2");
+        objArray2.add(2,"notcommon");
+        objArray2.add(3,"notcommon1");
+        objArray.add(0,"common1");
+        objArray.add(1,"common2");
+        objArray.add(2,"notcommon2");
+        System.out.println("array1 的元素" +objArray);
+        System.out.println("array2 的元素" +objArray2);
+        objArray.removeAll(objArray2);
+        System.out.println("array1 与 array2 数组差集为："+objArray);
+    }
+}
+```
+编译后的结果为：
+```
+array1 的元素[common1, common2, notcommon2]
+array2 的元素[common1, common2, notcommon, notcommon1]
+array1 与 array2 数组差集为：[notcommon2]
+```
+## Java 实例 - 在数组中查找指定元素
+以下实例演示了如何使用 contains () 方法来查找数组中的指定元素：
+
+```
+import java.util.ArrayList;
+ 
+public class ContainObjectDemo {
+    public static void main(String[] args)  {
+        ArrayList<String> objArray = new ArrayList<String>();
+        ArrayList<String> objArray2 = new ArrayList<String>();
+        objArray2.add(0,"common1");
+        objArray2.add(1,"common2");
+        objArray2.add(2,"notcommon");
+        objArray2.add(3,"notcommon1");
+        objArray.add(0,"common1");
+        objArray.add(1,"common2");
+        System.out.println("objArray 的数组元素："+objArray);
+        System.out.println("objArray2 的数组元素："+objArray2);
+        System.out.println("objArray 是否包含字符串common2? ： "
+        +objArray.contains("common2"));
+        System.out.println("objArray2 是否包含数组 objArray? ："
+        +objArray2.contains(objArray) );
+    }
+}
+```
+编译后的结果为：
+
+```
+objArray 的数组元素：[common1, common2]
+objArray2 的数组元素：[common1, common2, notcommon, notcommon1]
+objArray 是否包含字符串common2? ： true
+objArray2 是否包含数组 objArray? ：false
+```
+## Java 实例 - 判断数组是否相等
+以下实例演示了如何使用 equals ()方法来判断数组是否相等：
+```
+import java.util.Arrays;
+ 
+public class ArrayEqualDemo {
+    public static void main(String[] args) throws Exception {
+        int[] ary = {1,2,3,4,5,6};
+        int[] ary1 = {1,2,3,4,5,6};
+        int[] ary2 = {1,2,3,4};
+        System.out.println("数组 ary 是否与数组 ary1相等? ："
+        +Arrays.equals(ary, ary1));
+        System.out.println("数组 ary 是否与数组 ary2相等? ："
+        +Arrays.equals(ary, ary2));
+    }
+}
+```
+编译后的结果为：
+```
+数组 ary 是否与数组 ary1相等? ：true
+数组 ary 是否与数组 ary2相等? ：false
+```
+## Java 实例 - 数组并集
+以下实例演示了如何使用 union ()方法来计算两个数组的并集：
+
+```
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+ 
+ 
+public class CombineDemo {
+    public static void main(String[] args) throws Exception {
+        String[] arr1 = { "1", "2", "3" };
+        String[] arr2 = { "4", "5", "6" };
+        String[] result_union = union(arr1, arr2);
+        System.out.println("并集的结果如下：");
+ 
+        for (String str : result_union) {
+            System.out.println(str);
+        }
+    }
+ 
+    // 求两个字符串数组的并集，利用set的元素唯一性
+    public static String[] union(String[] arr1, String[] arr2) {
+        Set<String> set = new HashSet<String>();
+ 
+        for (String str : arr1) {
+            set.add(str);
+        }
+ 
+        for (String str : arr2) {
+            set.add(str);
+        }
+ 
+        String[] result = {  };
+ 
+        return set.toArray(result);
+    }
+}
+
+```
+编译后的结果为：
+```
+并集的结果如下：
+3
+2
+1
+6
+5
+4
+```
 源地址：[Java 实例](https://www.runoob.com/java/java-examples.html)
 
 github地址：[Java学习](https://github.com/shaveKevin/SKJAVALearning)
